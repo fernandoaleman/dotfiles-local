@@ -1,0 +1,110 @@
+# -----------------------------------------------
+# General
+# -----------------------------------------------
+
+copy-on-select = clipboard
+shell-integration = detect
+
+# -----------------------------------------------
+# Theme
+# -----------------------------------------------
+
+theme = catppuccin-mocha
+
+# -----------------------------------------------
+# Fonts
+# -----------------------------------------------
+
+font-size = 20
+
+font-thicken = false
+
+font-family = JetBrainsMono Nerd Font
+font-style = Medium
+
+font-family-bold = "JetBrainsMono Nerd Font"
+font-style-bold = Bold
+
+font-family-bold-italic = "JetBrainsMono Nerd Font"
+font-style-bold-italic = Bold Italic
+
+# -----------------------------------------------
+# Window
+# -----------------------------------------------
+
+background-opacity = 0.9
+maximize = true
+window-decoration = none
+window-padding-x = 25
+window-padding-y = 20
+window-save-state = always
+
+# -----------------------------------------------
+# key bindings
+# -----------------------------------------------
+
+# Open smart tmux session manager
+keybind = super+k=text:\x01T
+
+# Switch to last tmux session
+keybind = super+l=text:\x01L
+
+# Split tmux window horizontally
+keybind = super+minus=text:\x01"
+
+# Split tmux window vertically 
+keybind = super+backslash=text:\x01%
+
+# Open new tmux tab
+keybind = super+t=text:\x01c
+
+# Close tmux tab
+keybind = super+w=text:\x01x
+
+# Move to next tmux tab
+keybind = ctrl+tab=text:\x01n
+
+# Detach from tmux session
+keybind = super+d=text:\x01d
+
+# Open tmux session manager
+keybind = super+s=text:\x01s
+
+# Expand current tmux window
+keybind = super+z=text:\x01z
+
+# Rename tmux tab
+keybind = super+comma=text:\x01,
+
+# Select tmux tab 1
+keybind = super+one=text:\x011
+
+# Select tmux tab 2
+keybind = super+two=text:\x012
+
+# Select tmux tab 3
+keybind = super+three=text:\x013
+
+# Select tmux tab 4
+keybind = super+four=text:\x014
+
+# Select tmux tab 5
+keybind = super+five=text:\x015
+
+# Select tmux tab 6
+keybind = super+six=text:\x016
+
+# Select tmux tab 7
+keybind = super+seven=text:\x017
+
+# Select tmux tab 8
+keybind = super+eight=text:\x018
+
+# Select tmux tab 9
+keybind = super+nine=text:\x019
+
+# copy
+keybind = super+c=text:"+y
+
+# open tmux floax
+keybind = super+.=text:\x01p

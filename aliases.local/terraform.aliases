@@ -1,0 +1,6 @@
+alias ta="terraform apply"
+alias ti="terraform init"
+alias tp="terraform plan"
+alias tv="terraform validate"
+
+# vim: set filetype=zsh sw=2 sts=2 et:

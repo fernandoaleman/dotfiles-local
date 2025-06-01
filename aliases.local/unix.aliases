@@ -1,0 +1,11 @@
+# Unix
+alias ls="eza --icons=always"
+alias cd="z"
+
+# Bundler
+alias b="bundle"
+alias be="noglob bundle exec" # noglob avoids zsh: no matches found error
+alias bu="bundle update"
+
+# The silver searcher
+alias ag="ag -uf --hidden"

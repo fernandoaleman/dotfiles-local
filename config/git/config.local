@@ -1,0 +1,12 @@
+[user]
+  name = Fernando Alemán
+  email = fernandoaleman@mac.com
+
+[merge "ours"]
+  driver = true
+
+[alias]
+  clone-branches = "! git branch -a | sed -n \"/\\/HEAD /d; /\\/master$/d; /remotes/p;\" | xargs -L1 git checkout -t"
+
+[core]
+  excludesfile = ~/.config/git/gitignore.local

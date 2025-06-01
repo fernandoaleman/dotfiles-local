@@ -1,0 +1,486 @@
+Host *
+  AddKeysToAgent yes
+  ServerAliveInterval 120
+  SetEnv TERM=xterm-256color
+  TCPKeepAlive no
+  UseKeychain yes
+
+#--------------------------------------------------
+# AWS
+#--------------------------------------------------
+
+Host aws-integration-okb
+  User ubuntu
+  HostName 172.20.10.197
+  IdentityFile ~/.ssh/1000bulbs-integration-kp.pem
+
+Host aws-integration-strangler
+  User ubuntu
+  HostName 172.20.10.136
+  IdentityFile ~/.ssh/1000bulbs-integration-kp.pem
+
+#--------------------------------------------------
+# Office Servers
+#--------------------------------------------------
+
+Host lenny
+  HostName 10.20.100.83
+  # User faleman
+  User root
+
+Host jupiter
+  # IT team calls this bart
+  HostName 10.20.100.84
+  User devops
+
+Host saturn
+  HostName 10.20.100.85
+  User devops
+
+Host wyatt
+  HostName 10.20.100.86
+  User root
+
+#--------------------------------------------------
+# Integration Servers
+#--------------------------------------------------
+
+Host integration-carbonite
+  HostName 50.57.18.229
+  User root
+
+Host integration-data
+  HostName 198.101.137.244
+  User root
+
+Host integration-es2
+  HostName 104.130.91.31
+  User root
+
+Host integration-es7-master
+  HostName 104.130.100.127
+  User root
+
+Host integration-es7-node1
+  HostName 50.56.40.60
+  User root
+
+Host integration-es7-node2
+  HostName 50.56.40.61
+  User root
+
+Host integration-mysql
+  HostName 161.47.83.255
+  User root
+
+Host integration-mysql-clone
+  HostName 162.242.178.240
+  User root
+
+Host integration-mysql-carbonite
+  HostName 104.130.91.30
+  User root
+
+Host integration-okb
+  HostName 104.239.217.56
+  User root
+
+Host integration-opensearch
+  HostName 104.130.91.30
+  User root
+
+Host integration-opensearch
+  HostName 162.242.178.240
+  User root
+
+Host integration-postgres
+  HostName 184.106.25.214
+  User root
+
+Host integration-postgres-clone
+  HostName 166.78.72.190
+  User root
+
+Host integration-strangler
+  HostName 50.57.18.230
+  User root
+
+#--------------------------------------------------
+# QA Servers
+#--------------------------------------------------
+
+Host qa-data
+  HostName 162.242.178.242
+  User root
+
+Host qa-es2
+  HostName 104.239.217.58
+  User root
+
+Host qa-es7-master
+  HostName 192.237.234.143
+  User root
+
+Host qa-es7-node1
+  HostName 162.242.178.241
+  User root
+
+Host qa-es7-node2
+  HostName 161.47.49.183
+  User root
+
+Host qa-mysql
+  HostName 50.56.40.62
+  User root
+
+Host qa-okb
+  HostName 50.57.2.153
+  User root
+
+Host qa-opensearch
+  HostName 50.57.18.229
+  User root
+
+Host qa-postgres
+  HostName 50.56.40.63
+  User root
+
+Host qa-strangler-01
+  HostName 50.57.2.155
+  User root
+
+Host qa-strangler-02
+  HostName 161.47.83.253
+  User root
+
+Host qa-strangler-03
+  HostName 161.47.83.254
+  User root
+
+Host qa-strangler-04
+  HostName 184.106.25.212
+  User root
+
+Host qa-strangler-05
+  HostName 184.106.25.213
+  User root
+
+#--------------------------------------------------
+# QA2 Servers
+#--------------------------------------------------
+
+Host qa2-data
+  HostName 184.106.1.200
+  User root
+
+Host qa2-es2
+  HostName 184.106.1.218
+  User root
+
+Host qa2-es7-master
+  HostName 104.130.100.124
+  User root
+
+Host qa2-es7-node1
+  HostName 184.106.1.219
+  User root
+
+Host qa2-es7-node2
+  HostName 184.106.1.221
+  User root
+
+Host qa2-mysql
+  HostName 162.242.178.243
+  User root
+
+Host qa2-okb
+  HostName 23.253.3.168
+  User root
+
+Host qa2-opensearch
+  HostName 184.106.1.202
+  User root
+
+Host qa2-postgres
+  HostName 184.106.1.201
+  User root
+
+Host qa2-strangler-01
+  HostName 50.56.3.34
+  User root
+
+Host qa2-strangler-02
+  HostName 50.57.2.152
+  User root
+
+Host qa2-strangler-03
+  HostName 50.57.2.154
+  User root
+
+Host qa2-strangler-04
+  HostName 184.106.1.216
+  User root
+
+Host qa2-strangler-05
+  HostName 184.106.1.217
+  User root
+
+#--------------------------------------------------
+# Staging Servers
+#--------------------------------------------------
+
+Host staging-carbonite
+  HostName 104.239.217.57
+  User root
+
+Host staging-data
+  HostName 104.130.91.24
+  User root
+
+Host staging-es2
+  HostName 198.101.137.245
+  User root
+
+Host staging-es7-master
+  HostName 166.78.86.190
+  User root
+
+Host staging-es7-node1
+  HostName 166.78.86.191
+  User root
+
+Host staging-es7-node2
+  HostName 192.237.128.156
+  User root
+
+Host staging-mysql
+  HostName 166.78.90.208
+  User root
+
+Host staging-mysql-carbonite
+  HostName 50.57.18.231
+  User root
+
+Host staging-okb
+  HostName 104.130.100.126
+  User root
+
+Host staging-postgres
+  HostName 166.78.90.209
+  User root
+
+Host staging-redis
+  HostName 161.47.49.181
+  User root
+
+Host staging-strangler-01
+  HostName 166.78.72.191
+  User root
+
+Host staging-strangler-02
+  HostName 192.237.128.157
+  User root
+
+Host staging-strangler-03
+  HostName 192.237.128.158
+  User root
+
+Host staging-strangler-04
+  HostName 192.237.128.159
+  User root
+
+Host staging-strangler-05
+  HostName 161.47.83.252
+  User root
+
+#--------------------------------------------------
+# Production Servers
+#--------------------------------------------------
+
+Host carbonite
+  HostName 104.239.217.59
+  User root
+
+Host carbonite-02
+  HostName 166.78.72.190
+  User root
+
+Host chef
+  HostName 104.130.91.25
+  User root
+
+Host db3
+  HostName 23.253.3.169
+  User devops
+
+Host es2
+  HostName 23.253.3.170
+  User root
+
+Host es7-master
+  HostName 104.130.100.125
+  User root
+
+Host es7-node1
+  HostName 166.78.86.188
+  User root
+
+Host es7-node2
+  HostName 166.78.86.189
+  User root
+
+Host maintenance
+  HostName 184.106.25.211
+  User root
+
+Host memcached-01
+  HostName 198.101.137.246
+  User root
+
+Host memcached-02
+  HostName 198.101.137.247
+  User root
+
+Host mysql
+  HostName 23.253.3.169
+  User devops
+
+Host mysql-carbonite
+  HostName 166.78.72.189
+  User root
+
+Host okb-01
+  HostName 184.106.19.104
+  User root
+
+Host okb-02
+  HostName 184.106.19.105
+  User root
+
+Host okb-03
+  HostName 184.106.19.106
+  User root
+
+Host okb-04
+  HostName 184.106.19.107
+  User root
+
+Host okb-05
+  HostName 184.106.19.108
+  User root
+
+Host okb-06
+  HostName 184.106.19.109
+  User root
+
+Host okb-07
+  HostName 184.106.19.110
+  User root
+
+Host okb-08
+  HostName 184.106.19.111
+  User root
+
+Host okb-09
+  HostName 184.106.25.208
+  User root
+
+Host okb-10
+  HostName 184.106.25.209
+  User root
+
+Host okb-admin
+  HostName 184.106.25.210
+  User root
+
+Host okb-pci
+  HostName 192.237.234.142
+  User root
+
+Host postgres
+  HostName 104.130.91.27
+  User devops
+
+Host rabbitmq
+  HostName 166.78.72.188
+  User root
+
+Host redis-okb
+  HostName 50.57.18.228
+  User root
+
+Host redis-carbonite
+  HostName 192.237.234.141
+  User root
+
+Host redis-strangler
+  HostName 192.237.234.140
+  User root
+
+Host strangler-01
+  HostName 184.106.25.198
+  User root
+
+Host strangler-02
+  HostName 161.47.49.180
+  User root
+
+Host strangler-03
+  HostName 184.106.1.220
+  User root
+
+Host strangler-04
+  HostName 161.47.49.182
+  User root
+
+Host strangler-05
+  HostName 184.106.25.195
+  User root
+
+Host strangler-06
+  HostName 184.106.1.222
+  User root
+
+Host strangler-07
+  HostName 104.130.91.26
+  User root
+
+Host strangler-08
+  HostName 184.106.1.223
+  User root
+
+Host strangler-09
+  HostName 104.130.91.28
+  User root
+
+Host strangler-10
+  HostName 104.130.91.29
+  User root
+
+Host strangler-11
+  HostName 184.106.25.192
+  User root
+
+Host strangler-12
+  HostName 184.106.25.193
+  User root
+
+Host strangler-13
+  HostName 184.106.25.194
+  User root
+
+Host strangler-14
+  HostName 184.106.25.196
+  User root
+
+Host strangler-15
+  HostName 184.106.25.197
+  User root
+
+Host strangler-pci
+  HostName 184.106.25.199
+  User root
+
+Host kelly-laptop
+  HostName 10.20.250.242
+  User admin

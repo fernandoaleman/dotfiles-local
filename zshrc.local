@@ -1,0 +1,39 @@
+# Load starship prompt
+eval "$(starship init zsh)"
+
+# Load zoxide
+eval "$(zoxide init zsh)"
+
+# Tmux
+if [[ -n "$TMUX" ]]; then
+  autoload -Uz compinit
+  compinit
+fi
+
+# Ansible
+# -----------------------------------------------------------------------------
+export ANSIBLE_LINT_CACHE_DIR=~/.ansible/lint-cache
+export ANSIBLE_STDOUT_CALLBACK=ansible.builtin.default
+export ANSIBLE_RESULT_FORMAT=yaml
+
+# On macOS, this fixes the error:
+#
+# objc[45956]: +[NSMutableString initialize] may have been in progress in another thread when fork() was called.
+# ...
+# ERROR! A worker was found in a dead state
+#
+# by disabling macOS’s strict behavior around unsafe fork() in multi-threaded Objective-C code.
+export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
+
+# AWS CLI
+# source /usr/local/share/zsh/site-functions/aws_zsh_completer.sh
+source ~/.aws_zsh_completer.sh
+
+# FZF 
+source <(fzf --zsh)
+
+# Terraform completion
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /opt/homebrew/bin/terraform terraform
+
+export MANPAGES="nvim +Man!"

@@ -1,0 +1,118 @@
+brew bundle --file=- <<EOF
+# Fonts
+cask "font-jetbrains-mono-nerd-font"
+
+# Unix
+brew "act"
+brew "ansible"
+brew "awscli"
+brew "bash"
+brew "bat"
+brew "colordiff"
+brew "curl"
+brew "diff-so-fancy"
+brew "eza"
+brew "fastfetch"
+brew "fd"
+brew "fzf"
+brew "ipcalc"
+brew "lazydocker"
+brew "lazygit"
+brew "ncdu"
+brew "nmap"
+brew "nvim"
+brew "rsync"
+brew "shellcheck"
+brew "starship"
+brew "switchaudio-osx"
+brew "tldr"
+brew "tree"
+brew "zoxide"
+brew "zsh-autosuggestions"
+brew "zsh-completions"
+brew "zsh-syntax-highlighting"
+
+# Mac apps
+cask "1password-cli"
+cask "appcleaner"
+cask "aws-vpn-client"
+cask "chatgpt"
+cask "discord"
+cask "firefox@developer-edition"
+cask "ghostty"
+cask "loom"
+cask "macx-youtube-downloader"
+cask "obsidian"
+cask "raindropio"
+cask "raycast"
+cask "reflex"
+cask "sync"
+EOF
+
+append_to_zshrc "eval \"\$(starship init zsh)\"" 1
+append_to_zshrc "eval \"\$(zoxide init zsh)\"" 1
+
+print_step "Installing terraform..."
+brew tap hashicorp/tap
+brew install hashicorp/tap/terraform
+if ! grep -q 'terraform' ~/.zshrc.local; then
+  terraform -install-autocomplete
+else
+  print_success "Terraform autocomplete already set up."
+fi
+
+[ ! -d "$HOME/.config/tmux/plugins" ] && mkdir -p "$HOME/.config/tmux/plugins"
+[ ! -d "$HOME/.config/tmux/plugins/tpm" ] && git clone "https://github.com/tmux-plugins/tpm" "$HOME/.config/tmux/plugins/tpm"
+
+print_step "Installing sesh ..."
+brew install joshmedeski/sesh/sesh
+
+print_step "Installing gitmux ..."
+brew tap arl/arl
+brew install gitmux
+
+print_step "Installing i2cssh ..."
+brew install wouterdebie/repo/i2cssh
+
+print_step "Installing espanso ..."
+brew install espanso
+[ ! -d "$HOME/.config/espanso" ] && mkdir "$HOME/.config/espanso"
+if [ ! -d "$HOME/Library/Application Support/espanso" ] && [ ! -L "$HOME/Library/Application Support/espanso" ]; then
+  ln -s "$HOME/.config/espanso" "$HOME/Library/Application Support/espanso"
+fi
+
+print_step "Installing Ruby 2.6.7 neovim gem dependencies ..."
+asdf set -u ruby 2.6.7
+
+if ! gem list bundler -v 1.17.3 --installed >/dev/null; then
+  gem install bundler -v 1.17.3
+fi
+
+gems=(
+  "rubocop-ast:1.30.0"
+  "parallel:1.24.0"
+  "rubocop:1.25.1"
+  "rubocop-rspec:2.11.1"
+  "nokogiri:1.13.10"
+  "solargraph:0.41.2"
+)
+
+for gem in "${gems[@]}"; do
+  name="${gem%%:*}"
+  version="${gem##*:}"
+
+  if ! gem list "$name" -v "$version" --installed >/dev/null; then
+    echo "Installing $name $version..."
+    gem install "$name" -v "$version"
+  else
+    echo "$name $version already installed."
+  fi
+done
+
+print_step "Installing Node.js packages ..."
+npm install -g changelog-maker
+npm install -g prettier
+
+print_step "Installing latest Python ..."
+install_asdf_plugin "python" "https://github.com/asdf-community/asdf-python.git"
+install_asdf_language "python"

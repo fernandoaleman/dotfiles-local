@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+if [ -d "$HOME/.config/tmux/plugins/tpm" ]; then
+  "$HOME/.config/tmux/plugins/tpm/bin/install_plugins"
+fi
+
+# vim: filetype=bash ts=2 sw=2 sts=2 et
