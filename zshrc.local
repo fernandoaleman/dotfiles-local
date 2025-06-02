@@ -1,3 +1,6 @@
+# XDG_CONFIG_HOME
+export XDG_CONFIG_HOME="$HOME/.config"
+
 # Load starship prompt
 eval "$(starship init zsh)"
 
