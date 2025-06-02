@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+# This script caches all code directories for use with sesh
+
+set -euo pipefail  # Safer bash: exit on error, undefined var, or pipe failure
+
+CODE_DIR="$HOME/code"
+
+# Check if the ~/code directory exists
+if [[ ! -d "$CODE_DIR" ]]; then
+  echo "Error: Directory '$CODE_DIR' does not exist." >&2
+  exit 1
+fi
+
+# Change to the code directory
+cd "$CODE_DIR"
+
+# Loop through and print all subdirectories, excluding unwanted ones
+\ls -d */ | grep -v '__pycache__'
+
+# Optionally return to original directory
+cd - > /dev/null
+
+# vim: set filetype=bash sw=2 sts=2 et:
