@@ -116,3 +116,13 @@ npm install -g prettier
 print_step "Installing latest Python ..."
 install_asdf_plugin "python" "https://github.com/asdf-community/asdf-python.git"
 install_asdf_language "python"
+
+print_step "Installing macos defaults ..."
+# ========== TRACKPAD ==========
+# Enable tap to click for current user
+defaults write com.apple.AppleMultitouchTrackpad Clicking -bool true
+defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+
+# Enable tap to click on login screen
+sudo defaults write /Library/Preferences/com.apple.AppleMultitouchTrackpad Clicking -bool true
+sudo defaults write /Library/Preferences/.GlobalPreferences com.apple.mouse.tapBehavior -int 1
