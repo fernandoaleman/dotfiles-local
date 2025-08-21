@@ -1,0 +1,6 @@
+---
+# Cloudflare CLI
+defaults:
+    token: 33289c53a095b8af38a5df6e135342a451adc
+    email: faleman@1000bulbs.com
+    domain: 1000bulbs.com

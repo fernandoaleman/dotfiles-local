@@ -1,0 +1,21 @@
+# my personal text replacements
+
+matches:
+  - label: "my ssh key"
+    trigger: ",,mysshkey"
+    replace: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBVd+TVCz7QNp3CrJfadQZBlfzpPew2vHNObSNWdJrQn faleman@1000bulbs.com"
+
+  - label: "my rsa ssh key"
+    trigger: ",,myrsakey"
+    replace: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCnuAJD3XOMyjD3UzQM3hR5v4FYonqXmzV5ziwKB01VY+0rl3vS/zaXNBiwAhFpcxp7jVuJoW6wNnHSrlsi7trp51B5Vsx4R7eww1TeICJBK1qCC1t7pmrC+4+HCNOqy+RwJniCGbxb8/Jh9/yfynr7IXrQthEO5UiIidcPNPFfka41BJfrySy0VMB9mrxN0DjnRZQrP3hP61MkU+lb8P2MrwwrHTyi3ybdSrfZwfNeXyFw0eu8svgY5G6tmby31DvWMkJGZB/lZ3P3g02zDLakqwRZ/p34oY/KJ6XJSDKGhfyAu4cbat37lwTU1mXy3OxFez6BifRzDG0oZo26wrwtSwO91j9hQoKakWVevMePd9aBjqWHMDPTnYckh/WkFgd1mRW/NrqkWh8NHi4o1eBcwnDJEnVhn3pUvVKBJgq5fo7tuD5H0I0125RCQEdmRly8Uzd/lJRqSQ6QbxGLqLAUO62FC28ImTQ9IMovHJFlRqP9ubf1LJLBMkwTK8EmwVpTWd/wd79Te63uiBCtQV65j9dIcryCChayTIzi60B03bYtKyIl3xXvtldVPa/DI0sNrMwzcLGVyAYonU6k5jiW3qUSkyIVa+wdZ0rL/QsA4uK7QhglcjEnL4xwoZEdjRK+PojHPU43LoYhsaG46tuUmj0Mh0Kf9uS14Ta2dDf00w== faleman@1000bulbs.com"
+
+  - label: "my ed25519 and rsa keys"
+    replace: |
+      ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBVd+TVCz7QNp3CrJfadQZBlfzpPew2vHNObSNWdJrQn faleman@1000bulbs.com
+      ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCnuAJD3XOMyjD3UzQM3hR5v4FYonqXmzV5ziwKB01VY+0rl3vS/zaXNBiwAhFpcxp7jVuJoW6wNnHSrlsi7trp51B5Vsx4R7eww1TeICJBK1qCC1t7pmrC+4+HCNOqy+RwJniCGbxb8/Jh9/yfynr7IXrQthEO5UiIidcPNPFfka41BJfrySy0VMB9mrxN0DjnRZQrP3hP61MkU+lb8P2MrwwrHTyi3ybdSrfZwfNeXyFw0eu8svgY5G6tmby31DvWMkJGZB/lZ3P3g02zDLakqwRZ/p34oY/KJ6XJSDKGhfyAu4cbat37lwTU1mXy3OxFez6BifRzDG0oZo26wrwtSwO91j9hQoKakWVevMePd9aBjqWHMDPTnYckh/WkFgd1mRW/NrqkWh8NHi4o1eBcwnDJEnVhn3pUvVKBJgq5fo7tuD5H0I0125RCQEdmRly8Uzd/lJRqSQ6QbxGLqLAUO62FC28ImTQ9IMovHJFlRqP9ubf1LJLBMkwTK8EmwVpTWd/wd79Te63uiBCtQV65j9dIcryCChayTIzi60B03bYtKyIl3xXvtldVPa/DI0sNrMwzcLGVyAYonU6k5jiW3qUSkyIVa+wdZ0rL/QsA4uK7QhglcjEnL4xwoZEdjRK+PojHPU43LoYhsaG46tuUmj0Mh0Kf9uS14Ta2dDf00w== faleman@1000bulbs.com
+
+  - label: "Sync from Mac Studio to laptop"
+    replace: "rsync -azP --delete faleman@10.0.0.20:~/code/ ~/code/ && rsync -azP --delete faleman@10.0.0.20:~/.zhistory ~/.zhistory"
+
+  - label: "Sync from laptop to Mac Studio"
+    replace: "rsync -azP --delete ~/code/ faleman@10.0.0.20:~/code/ && rsync -azP --delete ~/.zhistory faleman@10.0.0.20:~/.zhistory"

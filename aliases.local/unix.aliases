@@ -9,3 +9,18 @@ alias bu="bundle update"
 
 # The silver searcher
 alias ag="ag -uf --hidden"
+
+# zoxide
+alias za="zoxide add"
+alias zad="\ls -d */ | grep -v '__pycache__' | grep -v '.ansible' | xargs -I {} zoxide add {}"
+alias ze="zoxide edit"
+
+# diff
+diff() {
+  if command -v diff-so-fancy >/dev/null 2>&1; then
+    command diff -u "$@" | diff-so-fancy
+  else
+    echo "⚠️  diff-so-fancy not found — using default diff." >&2
+    command diff "$@"
+  fi
+}

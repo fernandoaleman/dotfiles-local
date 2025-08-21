@@ -16,7 +16,7 @@ fi
 cd "$CODE_DIR"
 
 # Loop through and print all subdirectories, excluding unwanted ones
-\ls -d */ | grep -v '__pycache__'
+\ls -d */ | grep -v '__pycache__' | grep -v '.ansible' | xargs -I {} zoxide add {}
 
 # Optionally return to original directory
 cd - > /dev/null

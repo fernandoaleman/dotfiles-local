@@ -28,6 +28,9 @@ export ANSIBLE_RESULT_FORMAT=yaml
 # by disabling macOS’s strict behavior around unsafe fork() in multi-threaded Objective-C code.
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 
+# AWS Env
+# export AWS_SSH_KEY_ID=aws-faleman.pem
+
 # AWS CLI
 # source /usr/local/share/zsh/site-functions/aws_zsh_completer.sh
 source ~/.aws_zsh_completer.sh
@@ -40,3 +43,27 @@ autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /opt/homebrew/bin/terraform terraform
 
 export MANPAGES="nvim +Man!"
+
+export PATH="$HOME/.bin:$PATH"
+
+###############################################################################
+# mise
+###############################################################################
+
+# mise version manager
+eval "$(mise activate zsh)"
+
+# mise ansible
+# export ANSIBLE_LINT_CACHE_DIR=~/.ansible/lint-cache
+# export ANSIBLE_STDOUT_CALLBACK=ansible.builtin.default
+# export ANSIBLE_RESULT_FORMAT=yaml
+
+# mise ruby
+# Fix for installing older versions of Ruby
+export DLDFLAGS="-Wl,-undefined,dynamic_lookup"
+export OPENSSL_CFLAGS="-Wno-error=implicit-function-declaration"
+export CFLAGS=-Wno-error="implicit-function-declaration"
+
+# mise terraform completion
+# autoload -U +X bashcompinit && bashcompinit
+# complete -o nospace -C /Users/faleman/.local/share/mise/installs/terraform/1.12.2/terraform terraform

@@ -1,0 +1,335 @@
+#!/usr/bin/env bash
+# vim: set filetype=bash tabstop=2 shiftwidth=2 expandtab :
+
+# Exit script on any error
+set -e
+
+# Validate the required first argument format: image:tag
+if [[ -z "$1" || ! "$1" =~ ^[^:]+:[^:]+$ ]]; then
+  echo "Usage: $0 <DOCKER_IMAGE> (format must be image:tag, e.g. ubuntu:22.04)"
+  exit 1
+fi
+
+capitalize() {
+  echo "$1" | tr '-' ' ' | awk '{
+    for (i=1; i<=NF; i++) {
+      $i = toupper(substr($i,1,1)) tolower(substr($i,2))
+    }
+    print
+  }' | tr ' ' '-'
+}
+
+DOCKER_IMAGE="$1"
+
+DOCKER_IMAGE_OS=$(echo "$DOCKER_IMAGE" | cut -d ':' -f1)
+DOCKER_IMAGE_VERSION=$(echo "$DOCKER_IMAGE" | cut -d ':' -f2)
+DOCKER_CONTAINER_IMAGE_VERSION=$(echo "$DOCKER_IMAGE_VERSION" | tr -d '.')
+DOCKER_IMAGE_NAME="docker-$DOCKER_IMAGE_OS-$DOCKER_CONTAINER_IMAGE_VERSION-ansible"
+
+DOCKER_HUB_IMAGE="1000bulbs/$DOCKER_IMAGE_NAME"
+
+GITHUB_REPO="1000Bulbs/$DOCKER_IMAGE_NAME"
+
+TITLE="Docker $(capitalize "$DOCKER_IMAGE_OS") $DOCKER_IMAGE_VERSION Ansible Test Image"
+
+SCRIPT_PATH="./$DOCKER_IMAGE_NAME"
+
+# Create project directory
+mkdir -p "$SCRIPT_PATH/.github/workflows"
+
+# Create GitHub Actions workflow
+cat >"$SCRIPT_PATH/.github/workflows/build.yml" <<EOF
+---
+name: Build
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+  schedule:
+    - cron: "0 2 * * 0"
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Test building image
+        run: docker build -t docker-ansible .
+
+      - name: Run the built image
+        run: >-
+          docker run --name test-container -d --privileged
+          -v /sys/fs/cgroup:/sys/fs/cgroup:rw --cgroupns=host
+          docker-ansible
+
+      - name: Verify Ansible is accessible in the built image
+        run: docker exec --tty test-container env TERM=xterm ansible --version
+
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    needs: test
+    if: github.ref == 'refs/heads/master'
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-qemu-action@v3
+      - uses: docker/setup-buildx-action@v3
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: \${{ secrets.DOCKER_USERNAME }}
+          password: \${{ secrets.DOCKER_TOKEN }}
+
+      - name: Build and push image.
+        uses: docker/build-push-action@v6
+        with:
+          context: ./
+          file: Dockerfile
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: $DOCKER_HUB_IMAGE:latest
+EOF
+
+# Create .ansible-lint file
+cat >"$SCRIPT_PATH/.ansible-lint" <<'EOF'
+---
+skip_list:
+  - 'role-name'
+EOF
+
+cat >"$SCRIPT_PATH/.dockerignore" <<'EOF'
+.git
+.github
+*.log
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+EOF
+
+# Create .gitignore file
+cat >"$SCRIPT_PATH/.gitignore" <<'EOF'
+# Python artifacts
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+.eggs/
+dist/
+build/
+.cache/
+*.sqlite3
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+*.env
+
+# Ansible-specific
+*.retry
+*.log
+*.tar.gz
+*.orig
+*.vault_pass
+*.secret
+group_vars/*/*.vault.yml
+host_vars/*/*.vault.yml
+*.pem
+*.key
+inventory/
+secrets/
+vault_pass.txt
+
+# Molecule
+.molecule/
+molecule/*/inventory/
+molecule/*/instance_config.yml
+molecule/*/provisioner_inventory.yml
+
+# Testinfra / pytest
+.pytest_cache/
+.testinfra_inventory.yml
+*.tox/
+.coverage
+htmlcov/
+nosetests.xml
+coverage.xml
+*.cover
+.tox/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*.swn
+*.bak
+*~
+
+# System files
+.DS_Store
+Thumbs.db
+EOF
+
+# Create .markdownlint-cli2.yaml file
+cat >"$SCRIPT_PATH/.markdownlint-cli2.yaml" <<EOF
+---
+extends: markdownlint-cli2/style/all.yaml
+config:
+  MD013: false
+EOF
+
+# Create .yamllint file
+cat >"$SCRIPT_PATH/.yamllint" <<'EOF'
+---
+extends: default
+
+rules:
+  # ansible-lint compatibility
+  # --------------------------------------------------------------------------r
+  comments:
+    min-spaces-from-content: 1  # ensures one space between # and comment
+  comments-indentation: false   # disables enforcement of comment indentation
+  braces:
+    max-spaces-inside: 1        # limits space inside braces
+  octal-values:
+    forbid-implicit-octal: true
+    forbid-explicit-octal: true
+  # ---------------------------------------------------------------------------
+
+  line-length: disable
+EOF
+
+# Create README.md
+cat >"$SCRIPT_PATH/README.md" <<EOF
+# $TITLE
+
+[![Build](https://github.com/$GITHUB_REPO/actions/workflows/build.yml/badge.svg)](https://github.com/$GITHUB_REPO/actions/workflows/build.yml) [![Docker pulls](https://img.shields.io/docker/pulls/$DOCKER_HUB_IMAGE)](https://hub.docker.com/r/$DOCKER_HUB_IMAGE/)
+
+$(capitalize "$DOCKER_IMAGE_OS") $DOCKER_IMAGE_VERSION docker container for testing Ansible roles and playbooks.
+
+## Tags
+
+- \`latest\`: Latest stable version of Ansible.
+
+## How to Build
+
+\`\`\`sh
+docker build -t $DOCKER_HUB_IMAGE:latest .
+\`\`\`
+
+## How to Pull
+
+\`\`\`sh
+docker pull $DOCKER_HUB_IMAGE:latest
+\`\`\`
+
+## How to Use
+
+Run a container:
+
+\`\`\`sh
+docker run --name ansible --detach --privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:rw --cgroupns=host $DOCKER_HUB_IMAGE:latest
+\`\`\`
+
+Run with local role:
+
+\`\`\`sh
+docker run --name ansible --detach --privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:rw --volume=\`pwd\`:/etc/ansible/roles/\`basename \$(pwd)\`:ro --cgroupns=host $DOCKER_HUB_IMAGE:latest
+\`\`\`
+
+Check Ansible version:
+
+\`\`\`sh
+docker exec --tty ansible env TERM=xterm ansible --version
+\`\`\`
+
+Syntax check playbook:
+
+\`\`\`sh
+docker exec --tty ansible env TERM=xterm ansible-playbook /path/to/playbook.yml --syntax-check
+\`\`\`
+EOF
+
+if (( $(echo "$DOCKER_IMAGE_VERSION >= 24" | bc -l) )); then
+  PIP_INSTALL_COMMAND=$(cat <<'EOF'
+# Remove useless Python environment warning flag
+RUN sudo rm -rf /usr/lib/python3.12/EXTERNALLY-MANAGED
+
+# Install Python packages
+RUN pip3 install $PIP_PACKAGES
+EOF
+)
+else
+  PIP_INSTALL_COMMAND=$(cat <<'EOF'
+# Install Python packages
+RUN pip3 install $PIP_PACKAGES
+EOF
+)
+fi
+
+# Create Dockerfile
+cat >"$SCRIPT_PATH/Dockerfile" <<EOF
+FROM $DOCKER_IMAGE
+LABEL maintainer="Fernando Aleman"
+
+# Avoid interactive prompts during package installation
+ARG DEBIAN_FRONTEND=noninteractive
+
+# Packages to install with pip3
+ENV PIP_PACKAGES="ansible"
+
+# Install system dependencies and clean up to reduce image size
+RUN apt-get update \\
+  && apt-get install -y --no-install-recommends \\
+  apt-utils build-essential locales libffi-dev libssl-dev libyaml-dev \\
+  python3-dev python3-setuptools python3-pip python3-yaml \\
+  software-properties-common rsyslog systemd systemd-cron sudo iproute2 \\
+  && apt-get clean \\
+  && rm -Rf /var/lib/apt/lists/* /usr/share/doc /usr/share/man
+
+# Disable imklog to prevent rsyslog from trying to access kernel logs (not available in containers)
+RUN sed -i '/^module(load="imklog"/ s/^/#/' /etc/rsyslog.conf
+
+# Generate locale to prevent warnings and ensure consistent encoding
+RUN locale-gen en_US.UTF-8
+
+$PIP_INSTALL_COMMAND
+
+# Set up a default Ansible inventory with local execution
+RUN mkdir -p /etc/ansible \\
+  && echo "[local]\nlocalhost ansible_connection=local" > /etc/ansible/hosts
+
+# Remove unnecessary systemd units not needed in a container
+RUN rm -f /lib/systemd/system/systemd*udev* /lib/systemd/system/getty.target
+
+# Declare volumes needed by systemd and runtime
+VOLUME ["/sys/fs/cgroup", "/tmp", "/run"]
+
+# Start systemd as the main process
+CMD ["/lib/systemd/systemd"]
+EOF
+
+# Initialize git and commit the project
+cd "$SCRIPT_PATH"
+git init
+
+git commit --allow-empty -m "Empty commit"
+
+git add .
+git commit -m "Initial commit"
+
+cd - >/dev/null
+
+echo ""
+echo "✅ $DOCKER_IMAGE_NAME created successfully."

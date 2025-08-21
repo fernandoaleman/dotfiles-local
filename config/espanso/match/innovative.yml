@@ -1,0 +1,16 @@
+# Innovative text replacements
+
+matches:
+  # Integration
+  - label: "Innovative aws integration rsync code to server"
+    trigger: ""
+    replace: "rsync -azP --exclude=.git --exclude=log --exclude=public --exclude=vendor --delete * deploy@172.20.10.136:/var/apps/strangler/current/"
+
+  # Production
+  - label: "Innovative aws production ssh strangler"
+    trigger: ""
+    replace: "ssh -i '~/.ssh/1000bulbs-production-ed25519-kp.pem' ubuntu@172.17.10.216"
+
+  - label: "Innovative aws production rsync ami to server"
+    trigger: ""
+    replace: "rsync -azP -e 'ssh -i ~/.ssh/1000bulbs-production-ed25519-kp.pem' --exclude=.git --exclude=.github --exclude=.gitignore --exclude=README.md * ubuntu@172.17.10.216:~/strangler-ami/"

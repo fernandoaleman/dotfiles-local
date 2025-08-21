@@ -1,0 +1,352 @@
+---
+version: 2
+clusters:
+  planets:
+    hosts:
+      - jupiter
+      - saturn
+
+  # integration
+  # ---------------------------------------------------------------------------
+
+  integration:
+    include_from:
+      - integration.data
+      - integration.dbs
+      - integration.es7
+      - integration.okb
+      - integration.opensearch
+      - integration.strangler
+  
+  integration.aws-php-asg:
+    hosts:
+      - aws-integration-php-asg-01
+      - aws-integration-php-asg-02
+  
+  integration.aws-strangler-asg:
+    hosts:
+      - aws-integration-strangler-asg-01
+      - aws-integration-strangler-asg-02
+
+  integration.data:
+    hosts:
+      - integration-data
+
+  integration.dbs:
+    hosts:
+      - integration-mysql
+      - integration-postgres
+
+  integration.es7:
+    hosts:
+      - integration-es7-master
+      - integration-es7-node1
+      - integration-es7-node2
+
+  integration.okb:
+    hosts:
+      - integration-okb
+
+  integration.opensearch:
+    hosts:
+      - integration-opensearch
+
+  integration.ssl:
+    include_from:
+      - integration.okb
+      - integration.strangler
+
+  integration.strangler:
+    hosts:
+      - integration-strangler
+
+  # qa
+  # ---------------------------------------------------------------------------
+
+  qa.aws-php:
+    hosts:
+      - qa-aws-php-01
+      - qa-aws-php-02
+      - qa-aws-php-03
+      - qa-aws-php-04
+      - qa-aws-php-05
+      - qa-aws-php-06
+      - qa-aws-php-07
+      - qa-aws-php-08
+      - qa-aws-php-09
+      - qa-aws-php-10
+
+  qa.aws-strangler:
+    hosts:
+      - qa-aws-strangler-01
+      - qa-aws-strangler-02
+      - qa-aws-strangler-03
+      - qa-aws-strangler-04
+      - qa-aws-strangler-05
+      - qa-aws-strangler-06
+      - qa-aws-strangler-07
+      - qa-aws-strangler-08
+      - qa-aws-strangler-09
+      - qa-aws-strangler-10
+      - qa-aws-strangler-11
+      - qa-aws-strangler-12
+      - qa-aws-strangler-13
+      - qa-aws-strangler-14
+      - qa-aws-strangler-15
+      - qa-aws-strangler-16
+
+  qa:
+    include_from:
+      - qa.data
+      - qa.dbs
+      - qa.es7
+      - qa.okb
+      - qa.opensearch
+      - qa.strangler
+
+  qa.data:
+    hosts:
+      - qa-data
+
+  qa.dbs:
+    hosts:
+      - qa-mysql
+      - qa-postgres
+
+  qa.es7:
+    hosts:
+      - qa-es7-master
+      - qa-es7-node1
+      - qa-es7-node2
+
+  qa.okb:
+    hosts:
+      - qa-okb
+
+  qa.opensearch:
+    hosts:
+      - qa-opensearch
+
+  qa.ssl:
+    include_from:
+      - qa.okb
+      - qa.strangler
+
+  qa.strangler:
+    hosts:
+      - qa-strangler-01
+      - qa-strangler-02
+      - qa-strangler-03
+      - qa-strangler-04
+      - qa-strangler-05
+
+  # qa2
+  # ---------------------------------------------------------------------------
+
+  qa2:
+    include_from:
+      - qa2.data
+      - qa2.dbs
+      - qa2.es7
+      - qa2.okb
+      - qa2.opensearch
+      - qa2.strangler
+
+  qa2.data:
+    hosts:
+      - qa2-data
+
+  qa2.dbs:
+    hosts:
+      - qa2-mysql
+      - qa2-postgres
+
+  qa2.es7:
+    hosts:
+      - qa2-es7-master
+      - qa2-es7-node1
+      - qa2-es7-node2
+
+  qa2.okb:
+    hosts:
+      - qa2-okb
+
+  qa2.opensearch:
+    hosts:
+      - qa2-opensearch
+
+  qa2.ssl:
+    include_from:
+      - qa2.okb
+      - qa2.strangler
+
+  qa2.strangler:
+    hosts:
+      - qa2-strangler-01
+      - qa2-strangler-02
+      - qa2-strangler-03
+      - qa2-strangler-04
+      - qa2-strangler-05
+
+  # staging
+  # ---------------------------------------------------------------------------
+
+  staging:
+    include_from:
+      - staging.data
+      - staging.dbs
+      - staging.es7
+      - staging.okb
+      - staging.strangler
+
+  staging.data:
+    hosts:
+      - staging-data
+
+  staging.dbs:
+    hosts:
+      - staging-mysql
+      - staging-postgres
+
+  staging.es7:
+    hosts:
+      - staging-es7-master
+      - staging-es7-node1
+      - staging-es7-node2
+
+  staging.okb:
+    hosts:
+      - staging-okb
+
+  staging.opensearch:
+    hosts:
+      - staging-opensearch
+
+  staging.ssl:
+    include_from:
+      - staging.okb
+      - staging.strangler
+
+  staging.strangler:
+    hosts:
+      - staging-strangler-01
+      - staging-strangler-02
+      - staging-strangler-03
+      - staging-strangler-04
+      - staging-strangler-05
+
+  # production
+  # ---------------------------------------------------------------------------
+
+  production.aws-php:
+    hosts:
+      - production-aws-php-01
+      - production-aws-php-02
+      - production-aws-php-03
+      - production-aws-php-04
+      - production-aws-php-05
+      - production-aws-php-06
+      - production-aws-php-07
+      - production-aws-php-08
+      - production-aws-php-09
+      - production-aws-php-10
+
+  production.aws-strangler:
+    hosts:
+      - production-aws-strangler-01
+      - production-aws-strangler-02
+      - production-aws-strangler-03
+      - production-aws-strangler-04
+      - production-aws-strangler-05
+      - production-aws-strangler-06
+      - production-aws-strangler-07
+      - production-aws-strangler-08
+      - production-aws-strangler-09
+      - production-aws-strangler-10
+      - production-aws-strangler-11
+      - production-aws-strangler-12
+      - production-aws-strangler-13
+      - production-aws-strangler-14
+      - production-aws-strangler-15
+      - production-aws-strangler-16
+
+  prod:
+    include_from:
+      - prod.data
+      - prod.dbs
+      - prod.es7
+      - prod.okb
+      - prod.strangler
+
+  prod.carbonite:
+    hosts:
+      - carbonite
+
+  prod.data:
+    include_from:
+      - prod.memcached
+      - prod.rabbitmq
+      - prod.redis
+
+  prod.dbs:
+    hosts:
+      - mysql
+      - postgres
+
+  prod.es7:
+    hosts:
+      - es7-master
+      - es7-node1
+      - es7-node2
+
+  prod.memcached:
+    hosts:
+      - memcached-01
+      - memcached-02
+
+  prod.okb:
+    hosts:
+      - okb-01
+      - okb-02
+      - okb-03
+      - okb-04
+      - okb-05
+      - okb-06
+      - okb-07
+      - okb-08
+      - okb-09
+      - okb-10
+      - okb-admin
+
+  prod.rabbitmq:
+    hosts:
+      - rabbitmq
+
+  prod.redis:
+    hosts:
+      - redis-carbonite
+      - redis-okb
+      - redis-strangler
+
+  prod.ssl:
+    include_from:
+      - prod.okb
+      - prod.strangler
+
+  prod.strangler:
+    hosts:
+      - strangler-01
+      - strangler-02
+      - strangler-03
+      - strangler-04
+      - strangler-05
+      - strangler-06
+      - strangler-07
+      - strangler-08
+      - strangler-09
+      - strangler-10
+      - strangler-11
+      - strangler-12
+      - strangler-13
+      - strangler-14
+      - strangler-15

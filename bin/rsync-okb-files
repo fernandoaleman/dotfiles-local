@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+# vim: set filetype=bash tabstop=2 shiftwidth=2 expandtab :
+
+print_step() {
+  echo -e "\n\033[1;34m==> $1\033[0m"
+}
+
+print_success() {
+  echo -e "\033[1;32m✔ $1\033[0m"
+}
+
+print_error() {
+  echo -e "\033[1;31m✖ $1\033[0m"
+}
+
+set -e
+
+REMOTE_USER="deploy"
+REMOTE_PATH="/var/apps/okb/current"
+: "${REMOTE_HOST:?Environment variable REMOTE_HOST is required}"
+
+# Check for PHP application structure
+if [[ ! -f "public_html/index.php" ]]; then
+  print_error "This does not appear to be a PHP application directory."
+  exit 1
+fi
+
+print_step "Syncing files to $REMOTE_USER@$REMOTE_HOST:$REMOTE_PATH"
+
+# git ls-files | \
+#   grep -vE '(\.bundle/|log/|\.git/|\.github/|\.gitignore|\.dockerignore|\.ruby-gemset|\.yamllint|Capfile|Dockerfile|README.md|config/|config\.ini|config\.docker\.ini|config\.ini\.template|docker/|docker-.*\.yml|src/.sass-cache/)' | \
+#   rsync -azv --delete --files-from=- ./ "$REMOTE_USER@$REMOTE_HOST:$REMOTE_PATH/"
+rsync -azv --delete --files-from=<(git ls-files) ./ "$REMOTE_USER@$REMOTE_HOST:$REMOTE_PATH/"
+
+
+print_step "Ensuring preserved directories exist on remote"
+
+PRESERVE_DIRS=("log" "tmp" "vendor" ".bundle")
+
+# for dir in "${PRESERVE_DIRS[@]}"; do
+#   ssh "$REMOTE_USER@$REMOTE_HOST" "mkdir -p \"$REMOTE_PATH/$dir\""
+# done
+
+print_success "Sync complete."

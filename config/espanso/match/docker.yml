@@ -1,0 +1,131 @@
+# docker text replacements
+
+matches:
+  - label: "Remove project docker containers and volumes"
+    trigger: ":dcdc:"
+    replace: "docker rm $(docker ps -a -q)"
+
+  - label: "Remove all docker containers"
+    trigger: ":drmc:"
+    replace: "docker rm $(docker ps -a -q)"
+
+  - label: "Remove all docker images"
+    trigger: ":drmi:"
+    replace: "docker rmi -f $(docker images -q)"
+
+  - label: "Remove all docker volumes"
+    trigger: ":drmv:"
+    replace: "docker volume rm $(docker volume ls -q)"
+
+  - label: "Remove all docker containers, images and volumes"
+    trigger: ":dclean:"
+    replace: "docker rm $(docker ps -a -q) && docker rmi $(docker images -q) && docker volume rm $(docker volume ls -q)"
+
+  - label: "Remove project docker containers then remove all containers, images and volumes"
+    trigger: ":ddestroy:"
+    replace: "docker-compose down --rmi local --volumes && docker rm $(docker ps -a -q) && docker volume rm $(docker volume ls -q) && docker rmi -f $(docker images -q)"
+
+  - trigger: ":db:"
+    replace: "docker build"
+
+  - trigger: ":dc:"
+    replace: "docker compose"
+
+  - trigger: ":dcb:"
+    replace: "docker compose build"
+
+  - trigger: ":dcd:"
+    replace: "docker compose down --remove-orphans"
+
+  - trigger: ":dcdc:"
+    replace: "docker compose down --rmi local --volumes"
+
+  - trigger: ":dce:"
+    replace: "docker compose exec"
+
+  - trigger: ":dcl:"
+    replace: "docker compose logs"
+
+  - trigger: ":dcr:"
+    replace: "docker compose run"
+
+  - trigger: ":dcu:"
+    replace: "docker compose up"
+
+  - trigger: ":dcub:"
+    replace: "docker compose up --build"
+
+  - trigger: ":dcud:"
+    replace: "docker compose up -d"
+
+  - trigger: ":dcstart:"
+    replace: "docker compose start"
+
+  - trigger: ":dcstop:"
+    replace: "docker compose stop"
+
+  - trigger: ":dcrestart:"
+    replace: "docker compose restart"
+
+  - trigger: ":de:"
+    replace: "docker exec"
+
+  - trigger: ":di:"
+    replace: "docker images"
+
+  - trigger: ":dl:"
+    replace: "docker logs"
+
+  - trigger: ":dn:"
+    replace: "docker network"
+
+  - trigger: ":dni:"
+    replace: "docker network inspect"
+
+  - trigger: ":dnls:"
+    replace: "docker network ls"
+
+  - trigger: ":dp:"
+    replace: "docker pull"
+
+  - trigger: ":dps:"
+    replace: "docker ps"
+
+  - trigger: ":dpsa:"
+    replace: "docker ps -a"
+
+  - trigger: ":dr:"
+    replace: "docker run"
+
+  - trigger: ":dstart:"
+    replace: "docker start"
+
+  - trigger: ":dstop:"
+    replace: "docker stop"
+
+  - trigger: ":drestart:"
+    replace: "docker restart"
+
+  - trigger: ":dv:"
+    replace: "docker volume"
+
+  - trigger: ":dvc:"
+    replace: "docker volume create"
+
+  - trigger: ":dvi:"
+    replace: "docker volume inspect"
+
+  - trigger: ":dvls:"
+    replace: "docker volume ls"
+
+  - trigger: ":dvrm:"
+    replace: "docker volume rm"
+
+  - trigger: ":drmc:"
+    replace: "docker rm $(docker ps -a -q)"
+
+  - trigger: ":drmv:"
+    replace: "docker volume rm $(docker volume ls -q)"
+
+  - trigger: ":drmi:"
+    replace: "docker rmi -f $(docker images -q)"

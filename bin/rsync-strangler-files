@@ -1,0 +1,90 @@
+#!/usr/bin/env bash
+# vim: set filetype=bash tabstop=2 shiftwidth=2 expandtab :
+
+print_step() {
+  echo -e "\n\033[1;34m==> $1\033[0m"
+}
+
+print_success() {
+  echo -e "\033[1;32m✔ $1\033[0m"
+}
+
+print_error() {
+  echo -e "\033[1;31m✖ $1\033[0m"
+}
+
+set -e
+
+REMOTE_USER="deploy"
+REMOTE_PATH="/var/apps/strangler/current"
+: "${REMOTE_HOST:?Environment variable REMOTE_HOST is required}"
+
+PRESERVE_DIRS=("log" "tmp/pids" "tmp/sockets" ".bundle")
+
+# Check for Rails application structure
+if [[ ! -f "config/application.rb" ]]; then
+  print_error "This does not appear to be a Rails application directory."
+  exit 1
+fi
+
+# Create tarball excluding unnecessary files/directories
+# You can adjust this list based on your actual project layout
+EXCLUDES=(
+  --exclude="rsync-files.sh"
+  --exclude="log/*"
+  --exclude="tmp/*"
+  --exclude="test/"
+  --exclude="spec/"
+  --exclude="coverage/"
+  --exclude=".git/"
+  --exclude=".github/"
+  --exclude=".gitignore"
+  --exclude=".env"
+  --exclude=".env.*"
+  --exclude=".DS_Store"
+  --exclude="node_modules/"
+  --exclude="vendor/bundle"
+  --exclude="storage/*"
+  --exclude="public/assets/"
+  --exclude="public/packs/"
+  --exclude="yarn.lock"
+  --exclude="package-lock.json"
+  --exclude="*.swp"
+  --exclude="docs/"
+  --exclude=".dockerignore"
+  --exclude=".foreman"
+  --exclude=".gitattributes"
+  --exclude=".rspec"
+  --exclude=".rubocop.yml"
+  --exclude=".ruby-gemset"
+  --exclude=".yamllint"
+  --exclude="Capfile"
+  --exclude="Guardfile"
+  --exclude="Procfile"
+  --exclude="Procfile"
+  --exclude="Procfile.*"
+  --exclude="README.md"
+  --exclude="docker-*.yml"
+  --exclude="config/deploy/"
+  --exclude="config/deploy.rb"
+  --exclude=".bundle/"
+  --exclude="tmp/"
+)
+
+FILTERS=()
+for dir in "${PRESERVE_DIRS[@]}"; do
+  FILTERS+=(--filter="protect $dir/")
+done
+
+print_step "Syncing files to $REMOTE_USER@$REMOTE_HOST:$REMOTE_PATH"
+
+# rsync -azv --delete "${FILTERS[@]}" "${EXCLUDES[@]}" ./ "$REMOTE_USER@$REMOTE_HOST:$REMOTE_PATH"
+rsync -azv --delete --files-from=<(git ls-files) ./ "$REMOTE_USER@$REMOTE_HOST:$REMOTE_PATH/"
+
+print_step "Ensuring preserved directories exist on remote"
+
+# for dir in "${PRESERVE_DIRS[@]}"; do
+#   ssh "$REMOTE_USER@$REMOTE_HOST" "mkdir -p \"$REMOTE_PATH/$dir\""
+# done
+
+print_success "Sync complete."

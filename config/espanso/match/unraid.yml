@@ -1,0 +1,7 @@
+# unraid text replacements
+
+matches:
+  - label:   "watch nvidia stream"
+    trigger: ":watch-nvidia-stream:"
+    replace: "watch nvidia-smi"
+

@@ -1,0 +1,4 @@
+matches:
+  - trigger: ":grinning:"
+    label: "Grinningings"
+    replace: "\U0001F600"

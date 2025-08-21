@@ -1,0 +1,17 @@
+# linux text replacements
+
+matches:
+  - label: "List largest files and directories"
+    replace: "FS='/';resize;clear;date;df -Ph $FS ;echo \" \"; df -PTi ${FS}; echo \"Largest Directories:\"; nice -n19 find $FS -mount -type d -print0 2>/dev/null|xargs -0 du -k 2>/dev/null|sort -runk1|head -n20|awk -F'\t' '{printf \"%8d MB\t%s\n\",($1/1024),$NF}';echo \"Largest Files:\"; nice -n 19 find $FS -mount -type f -print0 2>/dev/null| xargs -0 du -k | sort -rnk1| head -n20 |awk -F'\t' '{printf \"%8d MB\t%s\n\",($1/1024),$NF}';"
+
+  - label: "Number of CPU cores"
+    replace: "nproc --all"
+
+  - label: "delete file contents"
+    replace: "truncate -s 0 file"
+
+  - label: "delete directory file contents"
+    replace: "truncate -s 0 *"
+
+  - label: "completely delete user history"
+    replace: "runuser -l user -c 'truncate -s 0 ~/.bash_history'"

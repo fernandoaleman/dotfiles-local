@@ -2,6 +2,7 @@ Host *
   AddKeysToAgent yes
   ServerAliveInterval 120
   SetEnv TERM=xterm-256color
+  StrictHostKeyChecking accept-new
   TCPKeepAlive no
   UseKeychain yes
 
@@ -9,16 +10,37 @@ Host *
 # AWS
 #--------------------------------------------------
 
-Host aws-integration-okb
+Host aws-integration-php-ami
   User ubuntu
-  HostName 172.20.10.197
-  IdentityFile ~/.ssh/1000bulbs-integration-kp.pem
+  HostName 172.20.10.105
+  IdentityFile ~/.ssh/1000bulbs-integration-ed25519-kp
 
-Host aws-integration-strangler
+Host aws-integration-strangler-ami
   User ubuntu
-  HostName 172.20.10.136
-  IdentityFile ~/.ssh/1000bulbs-integration-kp.pem
+  HostName 172.20.10.105
+  IdentityFile ~/.ssh/1000bulbs-integration-ed25519-kp
 
+Host aws-integration-strangler-cron-ami
+  User ubuntu
+  HostName 172.20.11.134
+  IdentityFile ~/.ssh/1000bulbs-integration-ed25519-kp
+
+# QA
+
+Host aws-qa-php-ami
+  User ubuntu
+  HostName 172.21.10.123
+  IdentityFile ~/.ssh/1000bulbs-qa-ed25519-kp
+
+Host aws-qa-strangler-ami
+  User ubuntu
+  HostName 172.21.10.203
+  IdentityFile ~/.ssh/1000bulbs-qa-ed25519-kp
+
+Host aws-qa-strangler-cron-ami
+  User ubuntu
+  HostName 172.21.10.209
+  IdentityFile ~/.ssh/1000bulbs-qa-ed25519-kp
 #--------------------------------------------------
 # Office Servers
 #--------------------------------------------------
@@ -44,6 +66,30 @@ Host wyatt
 #--------------------------------------------------
 # Integration Servers
 #--------------------------------------------------
+  
+# PHP
+
+Host integration-aws-php-01
+  User ubuntu
+  HostName 172.20.11.166
+  IdentityFile ~/.ssh/1000bulbs-integration-ed25519-kp
+
+Host integration-aws-php-02
+  User ubuntu
+  HostName 172.20.10.77
+  IdentityFile ~/.ssh/1000bulbs-integration-ed25519-kp
+
+# Strangler
+
+Host integration-aws-strangler-01
+  User ubuntu
+  HostName 172.20.10.201
+  IdentityFile ~/.ssh/1000bulbs-integration-ed25519-kp
+
+Host integration-aws-strangler-02
+  User ubuntu
+  HostName 172.20.11.156
+  IdentityFile ~/.ssh/1000bulbs-integration-ed25519-kp
 
 Host integration-carbonite
   HostName 50.57.18.229
@@ -70,7 +116,7 @@ Host integration-es7-node2
   User root
 
 Host integration-mysql
-  HostName 161.47.83.255
+  HostName 104.239.217.57
   User root
 
 Host integration-mysql-clone
@@ -108,6 +154,140 @@ Host integration-strangler
 #--------------------------------------------------
 # QA Servers
 #--------------------------------------------------
+
+# PHP
+Host qa-aws-php-01
+  User ubuntu
+  HostName 172.21.10.237
+  IdentityFile ~/.ssh/1000bulbs-qa-ed25519-kp
+
+Host qa-aws-php-02
+  User ubuntu
+  HostName 172.21.10.91
+  IdentityFile ~/.ssh/1000bulbs-qa-ed25519-kp
+
+Host qa-aws-php-03
+  User ubuntu
+  HostName 172.21.10.40
+  IdentityFile ~/.ssh/1000bulbs-qa-ed25519-kp
+
+Host qa-aws-php-04
+  User ubuntu
+  HostName 172.21.10.246
+  IdentityFile ~/.ssh/1000bulbs-qa-ed25519-kp
+
+Host qa-aws-php-05
+  User ubuntu
+  HostName 172.21.10.249
+  IdentityFile ~/.ssh/1000bulbs-qa-ed25519-kp
+
+Host qa-aws-php-06
+  User ubuntu
+  HostName 172.21.11.185
+  IdentityFile ~/.ssh/1000bulbs-qa-ed25519-kp
+
+Host qa-aws-php-07
+  User ubuntu
+  HostName 172.21.11.237
+  IdentityFile ~/.ssh/1000bulbs-qa-ed25519-kp
+
+Host qa-aws-php-08
+  User ubuntu
+  HostName 172.21.11.220
+  IdentityFile ~/.ssh/1000bulbs-qa-ed25519-kp
+
+Host qa-aws-php-09
+  User ubuntu
+  HostName 172.21.11.191
+  IdentityFile ~/.ssh/1000bulbs-qa-ed25519-kp
+
+Host qa-aws-php-10
+  User ubuntu
+  HostName 172.21.11.120
+  IdentityFile ~/.ssh/1000bulbs-qa-ed25519-kp
+
+# Strangler
+
+Host qa-aws-strangler-01
+  User ubuntu
+  HostName 172.21.10.5
+  IdentityFile ~/.ssh/1000bulbs-qa-ed25519-kp
+
+Host qa-aws-strangler-02
+  User ubuntu
+  HostName 172.21.10.229
+  IdentityFile ~/.ssh/1000bulbs-qa-ed25519-kp
+
+Host qa-aws-strangler-03
+  User ubuntu
+  HostName 172.21.10.129
+  IdentityFile ~/.ssh/1000bulbs-qa-ed25519-kp
+
+Host qa-aws-strangler-04
+  User ubuntu
+  HostName 172.21.10.225
+  IdentityFile ~/.ssh/1000bulbs-qa-ed25519-kp
+
+Host qa-aws-strangler-05
+  User ubuntu
+  HostName 172.21.10.211
+  IdentityFile ~/.ssh/1000bulbs-qa-ed25519-kp
+
+Host qa-aws-strangler-06
+  User ubuntu
+  HostName 172.21.10.50
+  IdentityFile ~/.ssh/1000bulbs-qa-ed25519-kp
+
+Host qa-aws-strangler-07
+  User ubuntu
+  HostName 172.21.10.252
+  IdentityFile ~/.ssh/1000bulbs-qa-ed25519-kp
+
+Host qa-aws-strangler-08
+  User ubuntu
+  HostName 172.21.10.56
+  IdentityFile ~/.ssh/1000bulbs-qa-ed25519-kp
+
+Host qa-aws-strangler-09
+  User ubuntu
+  HostName 172.21.11.74
+  IdentityFile ~/.ssh/1000bulbs-qa-ed25519-kp
+
+Host qa-aws-strangler-10
+  User ubuntu
+  HostName 172.21.11.194
+  IdentityFile ~/.ssh/1000bulbs-qa-ed25519-kp
+
+Host qa-aws-strangler-11
+  User ubuntu
+  HostName 172.21.11.77
+  IdentityFile ~/.ssh/1000bulbs-qa-ed25519-kp
+
+Host qa-aws-strangler-12
+  User ubuntu
+  HostName 172.21.11.126
+  IdentityFile ~/.ssh/1000bulbs-qa-ed25519-kp
+
+Host qa-aws-strangler-13
+  User ubuntu
+  HostName 172.21.11.121
+  IdentityFile ~/.ssh/1000bulbs-qa-ed25519-kp
+
+Host qa-aws-strangler-14
+  User ubuntu
+  HostName 172.21.11.4
+  IdentityFile ~/.ssh/1000bulbs-qa-ed25519-kp
+
+Host qa-aws-strangler-15
+  User ubuntu
+  HostName 172.21.11.199
+  IdentityFile ~/.ssh/1000bulbs-qa-ed25519-kp
+
+Host qa-aws-strangler-16
+  User ubuntu
+  HostName 172.21.11.163
+  IdentityFile ~/.ssh/1000bulbs-qa-ed25519-kp
+
 
 Host qa-data
   HostName 162.242.178.242
@@ -297,6 +477,136 @@ Host staging-strangler-05
 # Production Servers
 #--------------------------------------------------
 
+Host production-aws-php-01
+  User ubuntu
+  HostName 172.17.10.158
+  IdentityFile ~/.ssh/1000bulbs-integration-ed25519-kp
+
+Host production-aws-php-02
+  User ubuntu
+  HostName 172.17.10.175
+  IdentityFile ~/.ssh/1000bulbs-integration-ed25519-kp
+
+Host production-aws-php-03
+  User ubuntu
+  HostName 172.17.10.88
+  IdentityFile ~/.ssh/1000bulbs-integration-ed25519-kp
+
+Host production-aws-php-04
+  User ubuntu
+  HostName 172.17.10.185
+  IdentityFile ~/.ssh/1000bulbs-integration-ed25519-kp
+
+Host production-aws-php-05
+  User ubuntu
+  HostName 172.17.10.182
+  IdentityFile ~/.ssh/1000bulbs-integration-ed25519-kp
+
+Host production-aws-php-06
+  User ubuntu
+  HostName 172.17.11.210
+  IdentityFile ~/.ssh/1000bulbs-integration-ed25519-kp
+
+Host production-aws-php-07
+  User ubuntu
+  HostName 172.17.11.162
+  IdentityFile ~/.ssh/1000bulbs-integration-ed25519-kp
+
+Host production-aws-php-08
+  User ubuntu
+  HostName 172.17.11.23
+  IdentityFile ~/.ssh/1000bulbs-integration-ed25519-kp
+
+Host production-aws-php-09
+  User ubuntu
+  HostName 172.17.11.213
+  IdentityFile ~/.ssh/1000bulbs-integration-ed25519-kp
+
+Host production-aws-php-10
+  User ubuntu
+  HostName 172.17.11.219
+  IdentityFile ~/.ssh/1000bulbs-integration-ed25519-kp
+
+Host production-aws-strangler-01
+  User ubuntu
+  HostName 172.17.10.93
+  IdentityFile ~/.ssh/1000bulbs-integration-ed25519-kp
+
+Host production-aws-strangler-02
+  User ubuntu
+  HostName 172.17.10.223
+  IdentityFile ~/.ssh/1000bulbs-integration-ed25519-kp
+
+Host production-aws-strangler-03
+  User ubuntu
+  HostName 172.17.10.210
+  IdentityFile ~/.ssh/1000bulbs-integration-ed25519-kp
+
+Host production-aws-strangler-04
+  User ubuntu
+  HostName 172.17.10.53
+  IdentityFile ~/.ssh/1000bulbs-integration-ed25519-kp
+
+Host production-aws-strangler-05
+  User ubuntu
+  HostName 172.17.10.171
+  IdentityFile ~/.ssh/1000bulbs-integration-ed25519-kp
+
+Host production-aws-strangler-06
+  User ubuntu
+  HostName 172.17.10.205
+  IdentityFile ~/.ssh/1000bulbs-integration-ed25519-kp
+
+Host production-aws-strangler-07
+  User ubuntu
+  HostName 172.17.10.247
+  IdentityFile ~/.ssh/1000bulbs-integration-ed25519-kp
+
+Host production-aws-strangler-08
+  User ubuntu
+  HostName 172.17.10.230
+  IdentityFile ~/.ssh/1000bulbs-integration-ed25519-kp
+
+Host production-aws-strangler-09
+  User ubuntu
+  HostName 172.17.11.155
+  IdentityFile ~/.ssh/1000bulbs-integration-ed25519-kp
+
+Host production-aws-strangler-10
+  User ubuntu
+  HostName 172.17.11.240
+  IdentityFile ~/.ssh/1000bulbs-integration-ed25519-kp
+
+Host production-aws-strangler-11
+  User ubuntu
+  HostName 172.17.11.35
+  IdentityFile ~/.ssh/1000bulbs-integration-ed25519-kp
+
+Host production-aws-strangler-12
+  User ubuntu
+  HostName 172.17.11.51
+  IdentityFile ~/.ssh/1000bulbs-integration-ed25519-kp
+
+Host production-aws-strangler-13
+  User ubuntu
+  HostName 172.17.11.199
+  IdentityFile ~/.ssh/1000bulbs-integration-ed25519-kp
+
+Host production-aws-strangler-14
+  User ubuntu
+  HostName 172.17.11.4
+  IdentityFile ~/.ssh/1000bulbs-integration-ed25519-kp
+
+Host production-aws-strangler-15
+  User ubuntu
+  HostName 172.17.11.41
+  IdentityFile ~/.ssh/1000bulbs-integration-ed25519-kp
+
+Host production-aws-strangler-16
+  User ubuntu
+  HostName 172.17.11.89
+  IdentityFile ~/.ssh/1000bulbs-integration-ed25519-kp
+
 Host carbonite
   HostName 104.239.217.59
   User root
@@ -330,7 +640,7 @@ Host es7-node2
   User root
 
 Host maintenance
-  HostName 184.106.25.211
+  HostName 23.253.3.171
   User root
 
 Host memcached-01

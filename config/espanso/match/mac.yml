@@ -1,0 +1,6 @@
+# docker text replacements
+
+matches:
+  - label: "Mac IP address"
+    trigger: ",,mip"
+    replace: "ipconfig getifaddr en0"

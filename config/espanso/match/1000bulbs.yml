@@ -1,0 +1,10 @@
+# 1000bulbs text replacements
+
+matches:
+  - label: "1kb daily order count"
+    trigger: ",,1kboc"
+    replace: "Order.where(created_at: date.beginning_of_day..date.end_of_day).count"
+
+  - label: "1kb daily order total"
+    trigger: ",,1kbot"
+    replace: "Order.where(created_at: date.beginning_of_day..date.end_of_day).sum(&:total).to_f"

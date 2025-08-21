@@ -1,0 +1,106 @@
+[default]
+region = us-east-2
+output = text
+[rackspace]
+region = us-east-1
+output = text
+[profile 1000bulbs-management]
+sso_session = 1000bulbs-management
+sso_account_id = 010438493738
+sso_role_name = AWSAdministratorAccess
+region = us-east-2
+output = json
+[sso-session 1000bulbs-management]
+sso_start_url = https://d-9a67798dc6.awsapps.com/start
+sso_region = us-east-2
+sso_registration_scopes = sso:account:access
+[profile 1000bulbs-audit]
+sso_session = 1000bulbs-audit
+sso_account_id = 011528287104
+sso_role_name = AWSAdministratorAccess
+region = us-east-2
+output = text
+[sso-session 1000bulbs-audit]
+sso_start_url = https://d-9a67798dc6.awsapps.com/start
+sso_region = us-east-2
+sso_registration_scopes = sso:account:access
+[profile 1000bulbs-disaster-recovery]
+sso_session = 1000bulbs-disaster-recovery
+sso_account_id = 011528296530
+sso_role_name = AWSAdministratorAccess
+region = us-east-2
+output = text
+[sso-session 1000bulbs-disaster-recovery]
+sso_start_url = https://d-9a67798dc6.awsapps.com/start
+sso_region = us-east-2
+sso_registration_scopes = sso:account:access
+[profile 1000bulbs-integration]
+sso_session = 1000bulbs-integration
+sso_account_id = 011528288744
+sso_role_name = AWSAdministratorAccess
+region = us-east-2
+output = text
+[sso-session 1000bulbs-integration]
+sso_start_url = https://d-9a67798dc6.awsapps.com/start
+sso_region = us-east-2
+sso_registration_scopes = sso:account:access
+[profile 1000bulbs-logging]
+sso_session = 1000bulbs-logging
+sso_account_id = 011528287043
+sso_role_name = AWSAdministratorAccess
+region = us-east-2
+output = text
+[sso-session 1000bulbs-logging]
+sso_start_url = https://d-9a67798dc6.awsapps.com/start
+sso_region = us-east-2
+sso_registration_scopes = sso:account:access
+[profile 1000bulbs-production]
+sso_session = 1000bulbs-production
+sso_account_id = 011528289193
+sso_role_name = AWSAdministratorAccess
+region = us-east-2
+output = text
+[sso-session 1000bulbs-production]
+sso_start_url = https://d-9a67798dc6.awsapps.com/start
+sso_region = us-east-2
+sso_registration_scopes = sso:account:access
+[profile 1000bulbs-qa]
+sso_session = 1000bulbs-qa
+sso_account_id = 491085423139
+sso_role_name = AWSAdministratorAccess
+region = us-east-2
+output = text
+[sso-session 1000bulbs-qa]
+sso_start_url = https://d-9a67798dc6.awsapps.com/start
+sso_region = us-east-2
+sso_registration_scopes = sso:account:access
+[profile 1000bulbs-sandbox]
+sso_session = 1000bulbs-sandbox
+sso_account_id = 521639665914
+sso_role_name = AWSAdministratorAccess
+region = us-east-2
+output = text
+[sso-session 1000bulbs-sandbox]
+sso_start_url = https://d-9a67798dc6.awsapps.com/start
+sso_region = us-east-2
+sso_registration_scopes = sso:account:access
+[profile 1000bulbs-shared-services]
+sso_session = 1000bulbs-shared-services
+sso_account_id = 011528289201
+sso_role_name = AWSAdministratorAccess
+region = us-east-2
+output = text
+[sso-session 1000bulbs-shared-services]
+sso_start_url = https://d-9a67798dc6.awsapps.com/start
+sso_region = us-east-2
+sso_registration_scopes = sso:account:access
+[profile 1000bulbs-staging]
+sso_session = 1000bulbs-staging
+sso_account_id = 011528288955
+sso_role_name = AWSAdministratorAccess
+region = us-east-2
+output = text
+[sso-session 1000bulbs-staging]
+sso_start_url = https://d-9a67798dc6.awsapps.com/start
+sso_region = us-east-2
+sso_registration_scopes = sso:account:access

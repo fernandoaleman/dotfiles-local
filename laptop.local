@@ -18,6 +18,7 @@ brew "fzf"
 brew "ipcalc"
 brew "lazydocker"
 brew "lazygit"
+brew "mise"
 brew "ncdu"
 brew "nmap"
 brew "nvim"
@@ -40,13 +41,11 @@ cask "chatgpt"
 cask "discord"
 cask "firefox@developer-edition"
 cask "ghostty"
-cask "loom"
 cask "macx-youtube-downloader"
 cask "obsidian"
 cask "raindropio"
 cask "raycast"
-cask "reflex"
-cask "sync"
+cask "reflex-app"
 EOF
 
 append_to_zshrc "eval \"\$(starship init zsh)\"" 1
@@ -81,41 +80,46 @@ if [ ! -d "$HOME/Library/Application Support/espanso" ] && [ ! -L "$HOME/Library
   ln -s "$HOME/.config/espanso" "$HOME/Library/Application Support/espanso"
 fi
 
-print_step "Installing Ruby 2.6.7 neovim gem dependencies ..."
-asdf set -u ruby 2.6.7
+# print_step "Installing Ruby 2.6.7 neovim gem dependencies ..."
+# asdf set -u ruby 2.6.7
 
-if ! gem list bundler -v 1.17.3 --installed >/dev/null; then
-  gem install bundler -v 1.17.3
-fi
+# if ! gem list bundler -v 1.17.3 --installed >/dev/null; then
+  # gem install bundler -v 1.17.3
+# fi
 
-gems=(
-  "rubocop-ast:1.30.0"
-  "parallel:1.24.0"
-  "rubocop:1.25.1"
-  "rubocop-rspec:2.11.1"
-  "nokogiri:1.13.10"
-  "solargraph:0.41.2"
-)
-
-for gem in "${gems[@]}"; do
-  name="${gem%%:*}"
-  version="${gem##*:}"
-
-  if ! gem list "$name" -v "$version" --installed >/dev/null; then
-    echo "Installing $name $version..."
-    gem install "$name" -v "$version"
-  else
-    echo "$name $version already installed."
-  fi
-done
-
-print_step "Installing Node.js packages ..."
-npm install -g changelog-maker
-npm install -g prettier
-
-print_step "Installing latest Python ..."
-install_asdf_plugin "python" "https://github.com/asdf-community/asdf-python.git"
-install_asdf_language "python"
+# gems=(
+#   "rubocop-ast:1.30.0"
+#   "parallel:1.24.0"
+#   "rubocop:1.25.1"
+#   "rubocop-rspec:2.11.1"
+#   "nokogiri:1.13.10"
+#   "solargraph:0.41.2"
+# )
+# 
+# for gem in "${gems[@]}"; do
+#   name="${gem%%:*}"
+#   version="${gem##*:}"
+# 
+#   if ! gem list "$name" -v "$version" --installed >/dev/null; then
+#     echo "Installing $name $version..."
+#     gem install "$name" -v "$version"
+#   else
+#     echo "$name $version already installed."
+#   fi
+# done
+# 
+# print_step "Installing latest Ruby version ..."
+# asdf install ruby latest
+# asdf set -u ruby latest
+# 
+# print_step "Installing Node.js packages ..."
+# npm install -g changelog-maker
+# npm install -g prettier
+# 
+# print_step "Installing latest Python ..."
+# install_asdf_plugin "python" "https://github.com/asdf-community/asdf-python.git"
+# asdf install python 3.12.10
+# asdf set -u python 3.12.10
 
 print_step "Installing macos defaults ..."
 # ========== TRACKPAD ==========

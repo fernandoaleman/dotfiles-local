@@ -1,0 +1,42 @@
+# aws text replacements
+
+matches:
+  - label:   "aws cloudformation validate Cloudformation template"
+    trigger: ":awsvcft:"
+    replace: "aws cloudformation validate-template --template-body file://EC2.yml"
+
+  - label:   "aws ec2 get AMI info"
+    trigger: ":awsamiinfo:"
+    replace: "aws ec2 describe-images --image-ids=[ami]"
+
+  - label:   "aws ec2 find latest CentOS AMI"
+    trigger: ":awsflca:"
+    replace: "aws ec2 describe-images --owners 'aws-marketplace' --filters 'Name=product-code,Values=aw0evgkw8e5c1q413zgy5pjce' --output json | jq -r '.Images | sort_by(.CreationDate) | last(.[]).ImageId'"
+
+  - label:   "aws ses list suppressed emails"
+    trigger: ":awsseslse:"
+    replace: "aws sesv2 list-suppressed-destinations --region us-east-1"
+
+  - label:   "aws ses list suppressed emails by date"
+    trigger: ":awsseslsebd:"
+    replace: "aws sesv2 list-suppressed-destinations --region us-east-1 --start-date `date -v1m '+%s'`"
+
+  - label:   "aws ses list suppressed bounce emails"
+    trigger: ":awsseslsbe:"
+    replace: "aws sesv2 list-suppressed-destinations --region us-east-1 --reasons BOUNCE"
+
+  - label:   "aws ses list suppressed complaint emails"
+    trigger: ":awsseslsce:"
+    replace: "aws sesv2 list-suppressed-destinations --region us-east-1 --reasons COMPLAINT"
+
+  - label:   "aws ses list search suppressed emails"
+    trigger: ":awssessse:"
+    replace: "aws sesv2 list-suppressed-destinations --region us-east-1 | grep -A2 '[email]'"
+
+  - label:   "aws ses list search suppressed emails by date"
+    trigger: ":awssesssebd:"
+    replace: "aws sesv2 list-suppressed-destinations --region us-east-1 --start-date `date -v1m '+%s'` | grep -A2 '[email]'"
+
+  - label:   "aws ses remove suppressed email"
+    trigger: ":awssesrse:"
+    replace: "aws sesv2 delete-suppressed-destination --email-address [email]"
